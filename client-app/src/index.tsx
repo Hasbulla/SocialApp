@@ -1,14 +1,17 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import './app/Layout/style.css';
-import 'semantic-ui-css/semantic.min.css';
+import ReactDOM from 'react-dom';
 import App from './app/Layout/App';
+import 'semantic-ui-css/semantic.min.css';
 import reportWebVitals from './reportWebVitals';
 import { store, StoreContext } from './app/Stores/Store';
+import { BrowserRouter } from 'react-router-dom';
 
 ReactDOM.render(
   <StoreContext.Provider value={store}>
-    <App />
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
   </StoreContext.Provider>,
   document.getElementById('root')
 );
