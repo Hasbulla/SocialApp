@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom';
 import App from './app/Layout/App';
 import 'semantic-ui-css/semantic.min.css';
 import 'react-calendar/dist/Calendar.css';
+import 'react-datepicker/dist/react-datepicker.css';
 import { createBrowserHistory } from "history";
 import reportWebVitals from './reportWebVitals';
 import { Router } from 'react-router-dom';
