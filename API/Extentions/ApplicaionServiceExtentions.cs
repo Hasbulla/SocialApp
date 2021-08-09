@@ -1,11 +1,11 @@
-using Application.Activities;
-using Application.Core;
 using MediatR;
+using Persistence;
+using Application.Core;
+using Application.Activities;
+using Microsoft.OpenApi.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.OpenApi.Models;
-using Persistence;
 
 namespace API.Extentions
 {

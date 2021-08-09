@@ -3,7 +3,6 @@ using Domain;
 using System.Threading.Tasks;
 using Application.Activities;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
 
 namespace API.Controllers
 {
