@@ -3,9 +3,9 @@ import { v4 as uuid } from 'uuid';
 import { Formik, Form } from 'formik';
 import { observer } from 'mobx-react-lite';
 import { useEffect, useState } from 'react';
-import { Button, Header, Segment } from 'semantic-ui-react';
 import { useStore } from '../../../app/Stores/Store';
 import { Activity } from '../../../app/Models/Activity';
+import { Button, Header, Segment } from 'semantic-ui-react';
 import MyTextArea from '../../../app/Common/Form/MyTextArea';
 import { Link, useHistory, useParams } from 'react-router-dom';
 import MyDateInput from '../../../app/Common/Form/MyDateInput';
@@ -17,7 +17,7 @@ import { categoryOptions } from '../../../app/Common/Options/CategotyOption';
 export default observer(function ActivityForm() {
     const history = useHistory();
     const { activityStore } = useStore();
-    const { createActivity, updateActivity, loading, loadActivity, loadingInitial } = activityStore;
+    const { createActivity, updateActivity, loadActivity, loadingInitial } = activityStore;
     const { id } = useParams<{ id: string }>();
 
     const [activity, setActivity] = useState<Activity>({
