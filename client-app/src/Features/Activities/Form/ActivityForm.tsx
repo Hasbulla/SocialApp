@@ -4,12 +4,12 @@ import { Formik, Form } from 'formik';
 import { observer } from 'mobx-react-lite';
 import { useEffect, useState } from 'react';
 import { useStore } from '../../../app/Stores/Store';
-import { Activity } from '../../../app/Models/Activity';
 import { Button, Header, Segment } from 'semantic-ui-react';
 import MyTextArea from '../../../app/Common/Form/MyTextArea';
 import { Link, useHistory, useParams } from 'react-router-dom';
 import MyDateInput from '../../../app/Common/Form/MyDateInput';
 import MyTextInput from '../../../app/Common/Form/MyTextInput';
+import { ActivityFormValues } from '../../../app/Models/Activity';
 import MySelectInput from '../../../app/Common/Form/MySelectInput';
 import LoadingComponent from '../../../app/Layout/LoadingComponent';
 import { categoryOptions } from '../../../app/Common/Options/CategotyOption';
@@ -20,15 +20,7 @@ export default observer(function ActivityForm() {
     const { createActivity, updateActivity, loadActivity, loadingInitial } = activityStore;
     const { id } = useParams<{ id: string }>();
 
-    const [activity, setActivity] = useState<Activity>({
-        id: '',
-        title: '',
-        category: '',
-        description: '',
-        date: null,
-        city: '',
-        venue: ''
-    });
+    const [activity, setActivity] = useState<ActivityFormValues>(new ActivityFormValues());
 
     const validationSchema = Yup.object({
         title: Yup.string().required('The activity title is required'),
@@ -40,11 +32,11 @@ export default observer(function ActivityForm() {
     })
 
     useEffect(() => {
-        if (id) loadActivity(id).then(activity => setActivity(activity!))
+        if (id) loadActivity(id).then(activity => setActivity(new ActivityFormValues(activity)))
     }, [id, loadActivity]);
 
-    function handleFormSubmit(activity: Activity) {
-        if (activity.id.length === 0) {
+    function handleFormSubmit(activity: ActivityFormValues) {
+        if (!activity.id) {
             let newActivity = {
                 ...activity,
                 id: uuid()
@@ -70,11 +62,20 @@ export default observer(function ActivityForm() {
                         <MyTextInput name='title' placeholder='Title' />
                         <MyTextArea rows={3} placeholder='Description' name='description' />
                         <MySelectInput options={categoryOptions} placeholder='Category'  name='category' />
-                        <MyDateInput placeholderText='Date' name='date' showTimeSelect timeCaption='time' dateFormat='MMMM d, yyyy h:mm aa' />
+                        <MyDateInput 
+                            placeholderText='Date'  
+                            name='date' 
+                            showTimeSelect
+                            timeCaption='time'
+                            dateFormat='MMMM d, yyyy h:mm aa'
+                        />
                         <Header content='Location Details' sub color='teal' />
                         <MyTextInput placeholder='City'  name='city' />
                         <MyTextInput placeholder='Venue' name='venue' />
-                        {/* <Button disabled={isSubmitting || !dirty || !isValid} loading={loading} floated='right' positive type='submit' content='Submit' /> */}
+                        <Button 
+                            disabled={isSubmitting || !dirty || !isValid}
+                            loading={isSubmitting} floated='right' 
+                            positive type='submit' content='Submit' />
                         <Button as={Link} to='/activities' floated='right' type='button' content='Cancel' />
                     </Form>
                 )}
